@@ -1,0 +1,1405 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "師資填報系統",
+    "version" : "1.0.0",
+    "title" : "師資填報系統",
+    "termsOfService" : "http://swagger.io/terms/",
+    "contact" : {
+      "email" : "apiteam@swagger.io"
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/CERE/teacher/1.0.0",
+  "tags" : [ {
+    "name" : "reportSetting",
+    "description" : "to set the report system (填報設定－取得填報設定資料、儲存填報資料、取得資料檔資訊)",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://swagger.io"
+    }
+  }, {
+    "name" : "reportManage",
+    "description" : "to follow, and check the report data(進度管理設定)",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://swagger.io"
+    }
+  }, {
+    "name" : "reportUpload",
+    "description" : "the interface to upload report data(單位填報介面)",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://swagger.io"
+    }
+  }, {
+    "name" : "register",
+    "description" : "to register an account(承辦人註冊)",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://swagger.io"
+    }
+  } ],
+  "schemes" : [ "https", "http" ],
+  "paths" : {
+    "/user/register/save" : {
+      "post" : {
+        "tags" : [ "register" ],
+        "summary" : "Creates user with given input array",
+        "operationId" : "createUsersWithArrayInput",
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "query",
+          "required" : true,
+          "type" : "string",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "email",
+          "in" : "query",
+          "required" : true,
+          "type" : "string",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "password",
+          "in" : "query",
+          "required" : true,
+          "type" : "string",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "contactTitle",
+          "in" : "query",
+          "required" : true,
+          "type" : "string",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "organization_id",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "department",
+          "in" : "query",
+          "required" : true,
+          "type" : "string",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "authority",
+          "in" : "query",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation & chage to the finisth page"
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/setReport" : {
+      "post" : {
+        "tags" : [ "reportSetting" ],
+        "summary" : "set setting value",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "reportSettingData",
+          "description" : "List of user object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ReportSet"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/getReport" : {
+      "get" : {
+        "tags" : [ "reportSetting" ],
+        "summary" : "get setting value",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ReportSet"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportSetting/getFile" : {
+      "get" : {
+        "tags" : [ "reportSetting" ],
+        "summary" : "get files to set personnel, teacher, teach file",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Sheet"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/getFile" : {
+      "get" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "get all sheets informataion",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Sheet"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/downloadInstructions" : {
+      "get" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "download user operation manual",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "download user operation manual"
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/downloadSheet" : {
+      "get" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "download excel sheet about all have uploaded sheets",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "sheet_id",
+          "in" : "formData",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "download excel sheet about all have uploaded sheets"
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/uploadSheet" : {
+      "post" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "upload excel sheet to add columns",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/getRows" : {
+      "get" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "get all file",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_1"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/updateRow" : {
+      "post" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "to upload row in sheets",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "row_id",
+          "in" : "formData",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportUpload/getReport" : {
+      "get" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "get setting value",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_2"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportUpload/getMessages" : {
+      "get" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "get messages",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Message"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportUpload/sendMessages" : {
+      "post" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "send message",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "reportSettingData",
+          "description" : "List of user object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Message"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Message"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportUpload/updateStatus" : {
+      "post" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "When click the btn to next step, change status",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_3"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportUpload/resetStatus" : {
+      "get" : {
+        "tags" : [ "reportUpload" ],
+        "summary" : "When need to return the step, reset status",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_3"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/uploadReport" : {
+      "get" : {
+        "summary" : "Creates user with given input array",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/updateStatus" : {
+      "get" : {
+        "summary" : "Creates user with given input array",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/resetStatus" : {
+      "get" : {
+        "summary" : "Creates user with given input array",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportManage/getReport" : {
+      "get" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "get setting value",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ReportSet"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportManage/getSchoolList" : {
+      "get" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "get school list & user",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/serchSchoolId" : {
+      "get" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "use school id to find school list",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "formData",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/inline_response_200_4"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/serchSchoolName" : {
+      "get" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "use school name to find school list",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/inline_response_200_4"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/getAnnouncement" : {
+      "get" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "Creates user with given input array",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/setAnnouncement" : {
+      "get" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "Creates user with given input array",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/getMessages" : {
+      "get" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "Creates user with given input array",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/sendMessages" : {
+      "post" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "Creates user with given input array",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "reportSettingData",
+          "description" : "List of user object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Message"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Message"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/teacher/downloadReports" : {
+      "get" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "Creates user with given input array",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "department",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/reportManage/updateStatus" : {
+      "post" : {
+        "tags" : [ "reportManage" ],
+        "summary" : "change the status",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "formData",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "status",
+          "in" : "formData",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_5"
+            }
+          },
+          "400" : {
+            "description" : "Invalid tag value"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Member" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "project_id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "actived" : {
+          "type" : "boolean"
+        },
+        "updated_at" : {
+          "type" : "string"
+        },
+        "created_at" : {
+          "type" : "string"
+        },
+        "actived_at" : {
+          "type" : "string"
+        },
+        "logined_at" : {
+          "type" : "string"
+        },
+        "deleted_at" : {
+          "type" : "string"
+        }
+      },
+      "xml" : {
+        "name" : "user_member"
+      }
+    },
+    "Project" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "register" : {
+          "type" : "boolean"
+        }
+      },
+      "xml" : {
+        "name" : "Project"
+      }
+    },
+    "OrganizationDetail" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "organization_id" : {
+          "type" : "string"
+        },
+        "year" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "citycode" : {
+          "type" : "string"
+        },
+        "cityname" : {
+          "type" : "string"
+        },
+        "zip" : {
+          "type" : "string"
+        },
+        "syscode" : {
+          "type" : "string"
+        },
+        "sysname" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "grade" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Groups" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "username" : {
+          "type" : "string"
+        },
+        "active" : {
+          "type" : "boolean"
+        },
+        "disabled" : {
+          "type" : "boolean"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "phone" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "password" : "password",
+        "phone" : "phone",
+        "name" : "name",
+        "active" : true,
+        "disabled" : true,
+        "id" : 0,
+        "email" : "email",
+        "username" : "username"
+      }
+    },
+    "Column" : {
+      "type" : "object",
+      "properties" : {
+        "class" : {
+          "type" : "string"
+        },
+        "created_at" : {
+          "type" : "string"
+        },
+        "encrypt" : {
+          "type" : "boolean"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "isnull" : {
+          "type" : "boolean"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "readOnly" : {
+          "type" : "boolean"
+        },
+        "rules" : {
+          "type" : "string"
+        },
+        "table_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "unique" : {
+          "type" : "boolean"
+        },
+        "updated_at" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Table" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sheet_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "database" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "lock" : {
+          "type" : "boolean"
+        },
+        "builded_at" : {
+          "type" : "string"
+        },
+        "construct_at" : {
+          "type" : "string"
+        },
+        "count" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "updated_at" : {
+          "type" : "string"
+        },
+        "created_at" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Sheet" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "file_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "editable" : {
+          "type" : "boolean"
+        },
+        "fillable" : {
+          "type" : "boolean"
+        },
+        "updated_at" : {
+          "type" : "string"
+        },
+        "created_at" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "updated_at" : "updated_at",
+        "editable" : true,
+        "file_id" : 6,
+        "created_at" : "created_at",
+        "id" : 0,
+        "title" : "title",
+        "fillable" : true
+      }
+    },
+    "ReportSet" : {
+      "type" : "object",
+      "properties" : {
+        "lock" : {
+          "type" : "boolean"
+        },
+        "timeLimit" : {
+          "$ref" : "#/definitions/inline_response_200_2_time_limit"
+        },
+        "public_insurance_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "schools_file_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "annuel" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "semester" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "personnel_file_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "teacher_file_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "teach_file_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "example" : {
+        "timeLimit" : {
+          "start" : "start",
+          "end" : "end"
+        },
+        "lock" : true,
+        "semester" : 5,
+        "teacher_file_id" : 2,
+        "public_insurance_id" : 0,
+        "annuel" : 1,
+        "schools_file_id" : 6,
+        "teach_file_id" : 7,
+        "personnel_file_id" : 5
+      }
+    },
+    "Report" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "report_set_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "school_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "personnel_status" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "teacher_status" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "teach_status" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Message" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "content" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "target_type" : {
+          "type" : "string"
+        },
+        "user_id" : {
+          "type" : "integer"
+        },
+        "created_at" : {
+          "type" : "string"
+        },
+        "updated_at" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "updated_at" : "updated_at",
+        "user_id" : 6,
+        "target_type" : "target_type",
+        "created_at" : "created_at",
+        "id" : 0,
+        "title" : "title",
+        "content" : "content"
+      }
+    },
+    "inline_response_200" : {
+      "properties" : {
+        "error_message" : {
+          "type" : "string"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "example" : {
+        "error_message" : "error_message",
+        "amount" : 0
+      }
+    },
+    "inline_response_200_1_data" : {
+      "properties" : {
+        "column_name" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "column_name" : "column_name"
+      }
+    },
+    "inline_response_200_1" : {
+      "properties" : {
+        "lock" : {
+          "type" : "boolean"
+        },
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_1_data"
+          }
+        }
+      },
+      "example" : {
+        "data" : [ {
+          "column_name" : "column_name"
+        }, {
+          "column_name" : "column_name"
+        } ],
+        "lock" : true
+      }
+    },
+    "inline_response_200_2_time_limit" : {
+      "properties" : {
+        "start" : {
+          "type" : "string"
+        },
+        "end" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "start" : "start",
+        "end" : "end"
+      }
+    },
+    "inline_response_200_2_user" : {
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "authority" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "example" : {
+        "authority" : [ "authority", "authority" ],
+        "id" : "id"
+      }
+    },
+    "inline_response_200_2_status" : {
+      "properties" : {
+        "personnel_status" : {
+          "type" : "string"
+        },
+        "teacher_status" : {
+          "type" : "string"
+        },
+        "teach_status" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "teach_status" : "teach_status",
+        "teacher_status" : "teacher_status",
+        "personnel_status" : "personnel_status"
+      }
+    },
+    "inline_response_200_2" : {
+      "properties" : {
+        "school_name" : {
+          "type" : "string"
+        },
+        "school_id" : {
+          "type" : "string"
+        },
+        "time_limit" : {
+          "$ref" : "#/definitions/inline_response_200_2_time_limit"
+        },
+        "user" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_2_user"
+          }
+        },
+        "status" : {
+          "$ref" : "#/definitions/inline_response_200_2_status"
+        }
+      },
+      "example" : {
+        "school_id" : "school_id",
+        "time_limit" : {
+          "start" : "start",
+          "end" : "end"
+        },
+        "school_name" : "school_name",
+        "user" : [ {
+          "authority" : [ "authority", "authority" ],
+          "id" : "id"
+        }, {
+          "authority" : [ "authority", "authority" ],
+          "id" : "id"
+        } ],
+        "status" : {
+          "teach_status" : "teach_status",
+          "teacher_status" : "teacher_status",
+          "personnel_status" : "personnel_status"
+        }
+      }
+    },
+    "inline_response_200_3" : {
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "personnel_file_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "teacher_file_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "teach_file_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "example" : {
+        "id" : 0,
+        "teacher_file_id" : 1,
+        "teach_file_id" : 5,
+        "personnel_file_id" : 6
+      }
+    },
+    "inline_response_200_4" : {
+      "properties" : {
+        "school_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "school_name" : {
+          "type" : "string"
+        },
+        "user" : {
+          "$ref" : "#/definitions/User"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "principal" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "personnel_status" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "teacher_status" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "teach_status" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "example" : {
+        "principal" : 1,
+        "teach_status" : 2,
+        "school_id" : 0,
+        "teacher_status" : 5,
+        "school_name" : "school_name",
+        "personnel_status" : 5,
+        "user" : {
+          "password" : "password",
+          "phone" : "phone",
+          "name" : "name",
+          "active" : true,
+          "disabled" : true,
+          "id" : 0,
+          "email" : "email",
+          "username" : "username"
+        },
+        "status" : 6
+      }
+    },
+    "inline_response_200_5" : {
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "principal" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "example" : {
+        "principal" : 6,
+        "id" : 0
+      }
+    }
+  },
+  "externalDocs" : {
+    "description" : "Find out more about Swagger",
+    "url" : "http://swagger.io"
+  }
+}
